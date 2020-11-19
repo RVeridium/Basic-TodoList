@@ -1,7 +1,7 @@
 import React, { useState }from 'react';
 import './App.css';
 import './TodoTable';
-//import TodoTable from './TodoTable';
+import TodoTable from './TodoTable';
 
 function App() {
   const [task, setTask] = useState({description: '', date: ''});
@@ -15,16 +15,14 @@ function App() {
     event.preventDefault();
     setTodos([...todos, task]);
   }
-  function poista(props) {
+
+
+  const poista = props => {
     todos.splice(props,1)
     const vali = todos;
     setTodos([]);
     setTodos([...vali]);
   }
-
-
-
-
 
   return (
     <div className="App">
@@ -36,20 +34,10 @@ function App() {
         <input type="submit" value="Add"/>
       </form>
       <table>
-        <tbody>
-          <tr><th>Date</th><th>Description</th></tr>
-          
-          {todos.map((todo, index) => <tr key={index}>
-              <td>{todo.date}</td>
-                <td>{todo.description}</td>
-                <td>
-                  <button value={index} onClick={e=> poista(e.target.value)} >Delete</button>
-                  </td>
-              </tr>)}
-            </tbody>
+          <TodoTable todos={todos} func={poista}/>
             </table>
     </div>
   );
 }
-//<TodoTable todos={todos} />
 export default App;
+
